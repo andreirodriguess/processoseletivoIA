@@ -18,7 +18,7 @@ from ultralytics import YOLO
 #      conferir visualmente as predições (não precisa ser commitada)
 # ---------------------------------------------------------------------------
 
-N_SAMPLES = 5
+N_SAMPLES = 10
 CLASS_NAMES = ["with_mask", "without_mask", "mask_weared_incorrect"]
 
 
