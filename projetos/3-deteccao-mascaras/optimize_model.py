@@ -11,7 +11,7 @@ from ultralytics import YOLO
 
 # insira seu código aqui
 
-# Dica de estrutura (não é obrigatório seguir exatamente assim):
-#
-# model = YOLO("model.pt")
-# model.export(format="tflite", imgsz=...)
+
+model = YOLO("model.pt")
+#Exportando o modelo para tflite
+model.export(format="tflite", imgsz=640)

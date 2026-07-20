@@ -16,14 +16,18 @@ from ultralytics import YOLO
 
 # insira seu código aqui
 
-# Dica de estrutura (não é obrigatório seguir exatamente assim):
-#
-# model = YOLO("yolo11n.pt")
-# results = model.train(
-#     data="dataset/data.yaml",
-#     epochs=...,
-#     imgsz=...,
-#     batch=...,
-#     device="cpu",
-# )
-# shutil.copy(results.save_dir / "weights" / "best.pt", "model.pt")
+
+model = YOLO("yolo11n.pt")
+results = model.train(
+    data="dataset/data.yaml",
+    epochs=30,
+    imgsz=640,
+    batch=16,
+    device="cpu",
+    
+    #ajustes para lidar com o desbalanceamento de classes
+
+    cls_pw=0.5, #aumento da penalização por erro de classe minoritária
+    cls=0.8 #aumento da penalidade por erro de classificação
+)
+shutil.copy(results.save_dir / "weights" / "best.pt", "model.pt")
