@@ -165,17 +165,16 @@ A otimização estrutural do modelo foi feita ao executar o script 'optimize_mod
 
 Após 30 épocas de fine-tuning, o modelo obteve os seguintes resultados de acurácia no conjunto de validação, de acordo com o arquivo ('results.png'):
 
-mAP50 : [aproximadamente 81%]
+mAP50 : [aproximadamente 81%]  
 mAP50-95 : [aproximadamente 57%]
 
-Tamanho do arquivo `model.pt`: 11.5 MB
-Tamanho do arquivo `model.tflite`: 11.1 MB
+Tamanho do arquivo `model.pt`: 5.38 KB  
+Tamanho do arquivo `model.tflite`: 10.38 KB
 
 
 ### 5️⃣ Comentários Adicionais (Opcional)
 
-A principal dificuldade encontrada foi devida à imcompatibilidade entre a dependências das bibliotecas e a versão 3.14 do Python do ambiente local de programação. Para solucionar tal problema foi necessário dar continuidade ao projeto em um ambiente virtual do GitHub Codespaces com Python 3.11, além da inserção manual das dependências compartilhadas do Linux (`libGL.so.1` e `libglib2.0-0`) necessárias para a compilação do OpenCV headless em servidores sem interface gráfica.
-
+A principal dificuldade encontrada foi a necessidade de lidar com o dataset com classes desbalanceadas no treinamento do modelo. Para tal, foi necessário consultar a documentação oficial da biblioteca Ultralytics e obter os parametros que me ajudariam a lidar com tal problemática.
 
 ### 6️⃣ Exemplo de Inferência
 
@@ -226,7 +225,7 @@ TOTAL                                      104
 ✅ Imagens anotadas salvas em: runs/detect/inferencia_exemplos/predicoes/
    (Abra essa pasta para verificar visualmente as bounding boxes preditas)
 
-Nota: As caixas ficaram bem localizadas na maioria das imagens, e houve muita eficiencia do modelo na detecção das classes corretamente, não foi possível perceber um desempenho inferior para a classe minoritária(`mask_weared_incorrect`).
+Nota: As caixas ficaram bem localizadas na maioria das imagens, porém, houveram raras exceções em que o modelo errou, e houve muita eficiência do modelo na detecção das classes corretamente, não foi possível perceber um desempenho inferior para a classe minoritária(`mask_weared_incorrect`).
 
 ---
 
