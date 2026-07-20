@@ -152,10 +152,10 @@ Para lidar com o desbalanceamento de classes no dataset foram ajustados os hiper
 
 As bibliotecas utilizadas estão listadas a seguir: 
 
-ultralytics
-torch e torchvision
-opencv-python(cv2)
-tensorflow
+ultralytics  
+torch e torchvision  
+opencv-python(cv2)  
+tensorflow  
 
 ### 3️⃣ Técnica de Otimização do Modelo  
 
