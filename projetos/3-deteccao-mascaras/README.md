@@ -130,39 +130,103 @@ projetos/3-deteccao-mascaras/
 
 ## 📝 Relatório do Candidato
 
-👤 **Nome Completo:**
+👤 **Nome Completo: Andrei Luiz da Silva Rodrigues**
 
 ### 1️⃣ Resumo da Abordagem
 
-Descreva os hiperparâmetros de fine-tuning utilizados (épocas, tamanho de
-imagem, batch size) e quaisquer ajustes feitos para lidar com o desbalanceamento
-de classes, se houver.
+Foram utilizados os seguintes hiperparâmetros no fine-tuning:  
+
+épocas: 30  
+Tamanho da imagem: 640x640  
+batch size: 16  
+cls : 0.8  
+cls_pw : 0.5  
+
+
+Para lidar com o desbalanceamento de classes no dataset foram ajustados os hiperparâmetros:  
+ Peso da perda de classificação('cls'), para aumentar a penalização do modelo em caso de erro de classe,  
+ e o Power for class weighting('cls_pw') para aumentar a penalização em caso de erro nas classes minoritárias.
+
 
 ### 2️⃣ Bibliotecas Utilizadas
 
-Liste as principais bibliotecas utilizadas, preferencialmente com suas versões.
+As bibliotecas utilizadas estão listadas a seguir: 
 
-### 3️⃣ Técnica de Otimização do Modelo
+ultralytics
+torch e torchvision
+opencv-python(cv2)
+tensorflow
 
-Explique o processo de exportação para TFLite realizado em `optimize_model.py`.
+### 3️⃣ Técnica de Otimização do Modelo  
+
+A otimização estrutural do modelo foi feita ao executar o script 'optimize_model.py'. Ao converter o modelo PyTorch estruturado em ponto flutuante de 32 bits('.pt') para o formato TensorFlow Lite('.tflite') usando o ecossistema de compilação da Google ('LiteRT'), por meio da chamada nativa da biblioteca Ultralytics (`model.export(format="tflite")`).
 
 ### 4️⃣ Resultados Obtidos
 
-Informe o mAP50 (e, se possível, o mAP50-95) obtido na validação, por classe se
-possível, e o tamanho dos arquivos `model.pt` e `model.tflite`.
+Após 30 épocas de fine-tuning, o modelo obteve os seguintes resultados de acurácia no conjunto de validação, de acordo com o arquivo ('results.png'):
+
+mAP50 : [aproximadamente 81%]
+mAP50-95 : [aproximadamente 57%]
+
+Tamanho do arquivo `model.pt`: 11.5 MB
+Tamanho do arquivo `model.tflite`: 11.1 MB
+
 
 ### 5️⃣ Comentários Adicionais (Opcional)
 
-Dificuldades encontradas, decisões técnicas importantes, limitações do modelo
-(ex: desempenho na classe minoritária), aprendizados durante o desafio.
+A principal dificuldade encontrada foi devida à imcompatibilidade entre a dependências das bibliotecas e a versão 3.14 do Python do ambiente local de programação. Para solucionar tal problema foi necessário dar continuidade ao projeto em um ambiente virtual do GitHub Codespaces com Python 3.11, além da inserção manual das dependências compartilhadas do Linux (`libGL.so.1` e `libglib2.0-0`) necessárias para a compilação do OpenCV headless em servidores sem interface gráfica.
+
 
 ### 6️⃣ Exemplo de Inferência
 
-Cole a saída do terminal ao rodar `run_inference.py` (número de detecções por
-imagem), e comente brevemente sobre o que observou ao abrir as imagens
-anotadas em `runs/detect/inferencia_exemplos/predicoes/` — por exemplo, se as
-caixas ficaram bem localizadas, se houve confusão entre classes, ou se a
-classe minoritária (`mask_weared_incorrect`) teve desempenho visivelmente pior.
+```text
+============================================================
+Projeto 3 — Inferência com model.tflite (Edge AI)
+============================================================
+
+Rodando inferência em 15 amostras usando model.tflite:
+
+Imagem                               Detecções  Detalhes
+----------------------------------------------------------------------
+Loading /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/model.tflite for LiteRT inference...
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss105.jpg                          9  [9x with_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss107.jpg                          1  [1x with_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss11.jpg                          31  [1x mask_weared_incorrect, 29x with_mask, 1x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss113.jpg                          4  [3x with_mask, 1x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss12.jpg                          13  [12x with_mask, 1x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss123.jpg                          2  [2x with_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss124.jpg                          6  [3x with_mask, 3x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss126.jpg                          3  [2x with_mask, 1x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss128.jpg                          1  [1x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss129.jpg                          3  [1x with_mask, 2x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss130.jpg                          5  [3x without_mask, 1x mask_weared_incorrect, 1x with_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss135.jpg                          5  [3x with_mask, 2x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss139.jpg                         19  [1x mask_weared_incorrect, 17x with_mask, 1x without_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss142.jpg                          1  [1x with_mask]
+Results saved to /workspaces/processoseletivoIA/projetos/3-deteccao-mascaras/runs/detect/inferencia_exemplos/predicoes
+maksssksksss143.jpg                          1  [1x with_mask]
+----------------------------------------------------------------------
+TOTAL                                      104
+
+✅ Imagens anotadas salvas em: runs/detect/inferencia_exemplos/predicoes/
+   (Abra essa pasta para verificar visualmente as bounding boxes preditas)
+
+Nota: As caixas ficaram bem localizadas na maioria das imagens, e houve muita eficiencia do modelo na detecção das classes corretamente, não foi possível perceber um desempenho inferior para a classe minoritária(`mask_weared_incorrect`).
 
 ---
 
