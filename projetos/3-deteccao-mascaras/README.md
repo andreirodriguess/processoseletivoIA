@@ -168,6 +168,8 @@ Após 30 épocas de fine-tuning, o modelo obteve os seguintes resultados de acur
 mAP50 : [aproximadamente 81%]  
 mAP50-95 : [aproximadamente 57%]
 
+O tamanho final do arquivos:
+
 Tamanho do arquivo `model.pt`: 5.38 KB  
 Tamanho do arquivo `model.tflite`: 10.38 KB
 
@@ -224,6 +226,7 @@ TOTAL                                      104
 
 ✅ Imagens anotadas salvas em: runs/detect/inferencia_exemplos/predicoes/
    (Abra essa pasta para verificar visualmente as bounding boxes preditas)
+```
 
 Nota: As caixas ficaram bem localizadas na maioria das imagens, porém, houveram raras exceções em que o modelo errou, e houve muita eficiência do modelo na detecção das classes corretamente, não foi possível perceber um desempenho inferior para a classe minoritária(`mask_weared_incorrect`).
 
