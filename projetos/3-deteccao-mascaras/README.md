@@ -152,9 +152,10 @@ Para lidar com o desbalanceamento de classes no dataset foram ajustados os hiper
 
 As bibliotecas utilizadas estão listadas a seguir: 
 
-ultralytics  
-torch e torchvision  
-opencv-python(cv2)  
+ultralytics (v8.4.102)  
+torch (v2.12.1)  
+torchvision  
+opencv-python  
 tensorflow  
 
 ### 3️⃣ Técnica de Otimização do Modelo  
@@ -165,10 +166,18 @@ A otimização estrutural do modelo foi feita ao executar o script 'optimize_mod
 
 Após 30 épocas de fine-tuning, o modelo obteve os seguintes resultados de acurácia no conjunto de validação, de acordo com o arquivo ('results.png'):
 
-mAP50 : [aproximadamente 81%]  
-mAP50-95 : [aproximadamente 57%]
+mAP50 global: [82.9%]  
+mAP50-95 global: [57.2%]
 
-O tamanho final do arquivos:
+Desempenho por classe(mAP50)  
+
+`with_mask`: 96.7%  
+`without_mask`: 81%  
+`mask_weared_incorrect`: 71.1%  
+
+Devido ao desbalanceamento do dataset, a classe minoritária (`mask_weared_incorrect`) teve o menor desempenho, mas ainda apresentou um resultado promissor e funcional graças ao ajuste dos pesos na função de perda.  
+
+O tamanho final dos arquivos:
 
 Tamanho do arquivo `model.pt`: 5.38 KB  
 Tamanho do arquivo `model.tflite`: 10.38 KB
@@ -228,7 +237,7 @@ TOTAL                                      104
    (Abra essa pasta para verificar visualmente as bounding boxes preditas)
 ```
 
-Nota: As caixas ficaram bem localizadas na maioria das imagens, porém, houveram raras exceções em que o modelo errou, e houve muita eficiência do modelo na detecção das classes corretamente, não foi possível perceber um desempenho inferior para a classe minoritária(`mask_weared_incorrect`).
+Nota: As caixas ficaram bem localizadas na maioria das imagens, porém, houveram raras exceções em que o modelo errou, e houve muita eficiência do modelo na detecção das classes corretamente, não foi possível perceber um desempenho inferior para a classe minoritária(`mask_weared_incorrect`) na observação destas 15 imagens de teste.
 
 ---
 
